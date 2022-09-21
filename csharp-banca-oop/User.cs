@@ -41,11 +41,6 @@ namespace csharp_banca_oop
         }
 
       
-
-
-
-
-        //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
     }
 
    

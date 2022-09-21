@@ -31,10 +31,21 @@ namespace csharp_banca_oop
 
         public override string ToString()
         {
-            return $"Codice Pratica: {Convert.ToString(Id).PadLeft(5, '0')} | Prestito del: data Inizio | Ammontare: {Amount} | Contraente: {Contractor.fullName()}";
+            return $"Codice Pratica: {Convert.ToString(Id).PadLeft(5, '0')} | Prestito del: {start.ToString("dd/MM/yyyy")} | Ammontare: {Amount} | Contraente: {Contractor.fullName()}";
         }
 
-        
+        public int remainderMonths()
+        {
+            return (int)DateTime.Now.Subtract(this.start).Days/30;
+        }
+
+        public float reminderAmount()
+        {
+
+            return this.Amount - (this.Installment * this.remainderMonths())<0 ? 0 : this.Amount - (this.Installment * this.remainderMonths());
+        }
+
+
     }
 
     

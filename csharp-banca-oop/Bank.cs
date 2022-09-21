@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace csharp_banca_oop
             Loans.Add(new Loan(Users[1],5000,36));
             Loans.Add(new Loan(Users[2],5000,36));
             Loans.Add(new Loan(Users[3],10000,24));
-            Loans.Add(new Loan(Users[4],600,6));
+            Loans.Add(new Loan(Users[1],900,6));
 
 
         }
@@ -65,7 +66,7 @@ namespace csharp_banca_oop
             }
         }
 
-        public List<Loan> showLoansClient(int idxUser)
+        public List<Loan> loansClient(int idxUser)
         {
             List<Loan> loans = new List<Loan>();
             if(idxUser != -1)
@@ -85,6 +86,40 @@ namespace csharp_banca_oop
             }
         }
 
+
+        public float totalAmountLoan(string fiscalCode)
+        {
+            if (researchUser(fiscalCode) != -1)
+            {
+                float totalAmount = 0;
+                foreach (Loan loan in loansClient(researchUser(fiscalCode)))
+                {
+                    totalAmount += loan.Amount;
+                }
+                return totalAmount;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public void remaningLoan(string fiscalCode)
+        {
+            if (researchUser(fiscalCode) != -1)
+            {
+                foreach (Loan loan in loansClient(researchUser(fiscalCode)))
+                {
+                    Console.WriteLine($"Codice Pratica: {Convert.ToString(loan.Id).PadLeft(5, '0')} | Prestito del: {loan.start.ToString("dd/MM/yyyy")} | Ammontare: {loan.Amount} | | Mesi Saldati: {Convert.ToString(loan.remainderMonths()).PadLeft(2)} | Totale Debito: { String.Format("{ 0:n}",  Convert.ToString(loan.reminderAmount()).PadLeft(6)) } ");
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Utente non trovato nel Archivio");
+            }
+        }
+
         
 
 
@@ -94,9 +129,4 @@ namespace csharp_banca_oop
 
 
     }
-    
-
-    //effettuare delle ricerche sui prestiti concessi ad un cliente dato il codice fiscale
-    //sapere, dato il codice fiscale di un cliente, l’ammontare totale dei prestiti concessi.
-    //sapere, dato il codice fiscale di un cliente, quante rate rimangono da pagare alla data odierna.
 }
