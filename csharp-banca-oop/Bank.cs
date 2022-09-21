@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace csharp_banca_oop
 {
     internal class Bank
     {
         public string Name { get; set; }
-        List<User> Users = new List<User>();
+        public List<User> Users = new List<User>();
         List<Loan> Loans = new List<Loan>();
     
         public Bank(string name)
@@ -31,10 +32,16 @@ namespace csharp_banca_oop
         }
 
 
-        public void addLoan(User user, int amount, int months)
+        public void addLoan(int idx, int amount, int months)
         {
-            Loans.Add(new Loan(user, amount, months));
+            Loans.Add(new Loan(Users[idx], amount, months));
         }
+
+        public void addUser(User user)
+        {
+            Users.Add(user);
+        }
+
 
         public int researchUser(string fiscalCode)
         {
@@ -50,14 +57,14 @@ namespace csharp_banca_oop
             return -1;
         }
 
-        public string editUser(int idxUser, string name = "null", string lastName= "null", string fiscalCode = "null", int salary = -1)
+        public string editUser(int idxUser, User user)
         {
             if(idxUser != -1)
             {
-                Users[idxUser].Name = name == "null" ? Users[idxUser].Name : name;
-                Users[idxUser].LastName = lastName == "null" ? Users[idxUser].LastName : lastName;
-                Users[idxUser].FiscalCode = fiscalCode == "null" ? Users[idxUser].FiscalCode : fiscalCode;
-                Users[idxUser].Salary = salary == -1 ? Users[idxUser].Salary : salary;
+                Users[idxUser].Name = user.Name;
+                Users[idxUser].LastName = user.LastName;
+                Users[idxUser].FiscalCode = user.FiscalCode;
+                Users[idxUser].Salary = user.Salary;
                 return $"Campi utente modificato con successo";
             }
             else
@@ -110,7 +117,7 @@ namespace csharp_banca_oop
             {
                 foreach (Loan loan in loansClient(researchUser(fiscalCode)))
                 {
-                    Console.WriteLine($"Codice Pratica: {Convert.ToString(loan.Id).PadLeft(5, '0')} | Prestito del: {loan.start.ToString("dd/MM/yyyy")} | Ammontare: {loan.Amount} | | Mesi Saldati: {Convert.ToString(loan.remainderMonths()).PadLeft(2)} | Totale Debito: { String.Format("{ 0:n}",  Convert.ToString(loan.reminderAmount()).PadLeft(6)) } ");
+                    Console.WriteLine($"Codice Pratica: {Convert.ToString(loan.Id).PadLeft(5, '0')} | Prestito del: {loan.start.ToString("dd/MM/yyyy")} | Ammontare: {loan.Amount} | Mesi Saldati: {Convert.ToString(loan.remainderMonths()).PadLeft(2)} | Totale Debito: {  Convert.ToString(loan.reminderAmount()).PadLeft(6) } ");
                 }
 
             }
