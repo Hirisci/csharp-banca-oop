@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace csharp_banca_oop
 {
@@ -33,7 +35,17 @@ namespace csharp_banca_oop
         }
 
 
-    //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
+        static public bool equalsUser(User obj, User obj1)
+        {
+            return obj.FiscalCode == obj1.FiscalCode ? true : false;
+        }
+
+      
+
+
+
+
+        //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
     }
 
    
