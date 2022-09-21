@@ -8,12 +8,33 @@ namespace csharp_banca_oop
 {
     internal class User
     {
-        //nome,
-        //cognome,
-        //codice fiscale
-        //stipendio
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string FiscalCode { get; set; }
+        public int Salary { get; set; }
+
+        public User(string name, string lastName, string fiscalCode, int salary)
+        {
+            Name = name;
+            LastName = lastName;
+            FiscalCode = fiscalCode;
+            Salary = salary;
+        }
+
+        public string fullName()
+        {
+            return $"{Name} {LastName}";
+        }
+
+
+        public override string ToString()
+        {
+            return $"Nome: {fullName().PadLeft(30)} | Codice Fiscale: {FiscalCode} | Salario: {Convert.ToString(Salary).PadLeft(6)}";
+        }
+
+
+    //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
     }
 
-    //Per i clienti e per i prestiti si vuole stampare un prospetto riassuntivo con tutti i dati che li caratterizzano in un formato di tipo stringa a piacere.
-    //visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
+   
 }
